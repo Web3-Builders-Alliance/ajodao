@@ -1,5 +1,7 @@
 use anchor_lang::prelude::*;
 
+use crate::profile::*;
+
 #[account]
 pub struct Pot {
     pub owner: Pubkey,
@@ -8,7 +10,7 @@ pub struct Pot {
     pub name: String,
     pub cycle: PotCycles,
     pub created_at: String,
-    pub members: Vec<Pubkey>,
+    pub members: Vec<Profile>,
     pub vault_bump: u8,
     pub state_bump: u8,
 }
@@ -24,9 +26,9 @@ impl Pot {
         name: String,
         cycle: PotCycles,
         created_at: String,
-        members: Vec<Pubkey>,
+        members: Vec<Profile>,
         vault_bump: u8,
-        state_bump: u8,
+        state_bump: u8, 
     ) -> Result<Self> {
         Ok(Self {
             owner,

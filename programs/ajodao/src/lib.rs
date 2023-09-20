@@ -12,7 +12,7 @@ declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 pub mod ajodao {
     use super::*;
 
-    pub fn create_pot(
+    pub fn create_new_pot(
         ctx: Context<CreatePot>,
         description: String,
         name: String,
@@ -20,5 +20,14 @@ pub mod ajodao {
         created_at: String,
     ) -> Result<()> {
         instructions::create_pot(ctx, description, name, cycle, created_at)
+    }
+
+    // Create Profile
+    pub fn create_new_profile(
+        ctx: Context<CreateProfile>,
+        name: String,
+        email: String
+    ) -> Result<()> {
+        instructions::create_profile(ctx, name, email)
     }
 }
