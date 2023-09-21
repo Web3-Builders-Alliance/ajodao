@@ -42,8 +42,6 @@ impl Pot {
             state_bump,
         })
     }
-
-    // Join a pot
 }
 
 #[derive(AnchorSerialize, AnchorDeserialize, Clone)]

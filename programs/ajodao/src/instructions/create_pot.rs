@@ -1,4 +1,5 @@
 use anchor_lang::prelude::*;
+use anchor_spl::token::{Mint, TokenAccount, Token};
 use std::mem::size_of;
 
 use crate::state::pot::*;
@@ -40,12 +41,24 @@ pub struct CreatePot<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
     #[account(
+        seeds = [b"auth", pot.key().as_ref()],
+        bump
+    )]
+    /// This is fine
+    pub auth: UncheckedAccount<'info>,
+    #[account(
+        init,
+        payer = payer,
         seeds = [
             b"vault",
             pot.key().as_ref()
         ],
-        bump
+        bump,
+        token::mint = token_mint,
+        token::authority = auth
     )]
-    pub vault: SystemAccount<'info>,
+    pub vault: Account<'info, TokenAccount>,
+    pub token_mint: Account<'info, Mint>,
+    pub token_program: Program<'info, Token>,
     pub system_program: Program<'info, System>,
 }

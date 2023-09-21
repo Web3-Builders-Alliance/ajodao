@@ -26,8 +26,14 @@ pub mod ajodao {
     pub fn create_new_profile(
         ctx: Context<CreateProfile>,
         name: String,
-        email: String
+        email: String,
+        number_of_deposits: u64, total_amount_deposited: u64
     ) -> Result<()> {
-        instructions::create_profile(ctx, name, email)
+        instructions::create_profile(ctx, name, email, number_of_deposits, total_amount_deposited)
+    }
+
+    // Join Pot
+    pub fn user_join_pot(ctx: Context<JoinPot>) -> Result<()> {
+        instructions::join_pot(ctx)
     }
 }

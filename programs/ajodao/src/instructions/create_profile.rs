@@ -3,10 +3,10 @@ use std::mem::size_of;
 
 use crate::state::profile::*;
 
-pub fn create_profile(ctx: Context<CreateProfile>, name: String, email: String) -> Result<()> {
+pub fn create_profile(ctx: Context<CreateProfile>, name: String, email: String, number_of_deposits: u64, total_amount_deposited: u64) -> Result<()> {
     ctx.accounts
         .profile
-        .set_inner(Profile::new_profile(name, email)?);
+        .set_inner(Profile::new_profile(name, email, number_of_deposits, total_amount_deposited)?);
     Ok(())
 }
 
