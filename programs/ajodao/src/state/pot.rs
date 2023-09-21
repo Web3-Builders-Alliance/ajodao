@@ -28,7 +28,7 @@ impl Pot {
         created_at: String,
         members: Vec<Profile>,
         vault_bump: u8,
-        state_bump: u8, 
+        state_bump: u8,
     ) -> Result<Self> {
         Ok(Self {
             owner,

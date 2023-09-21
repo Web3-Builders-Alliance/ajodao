@@ -25,12 +25,6 @@ pub fn create_pot(
 }
 
 #[derive(Accounts)]
-#[instruction(
-    owner: Pubkey,
-    description: String,
-    name: String,
-    cycle: PotCycles,
-)]
 pub struct CreatePot<'info> {
     #[account(
         init,
@@ -38,9 +32,7 @@ pub struct CreatePot<'info> {
         payer = payer,
         seeds = [
             b"pot",
-            owner.key().as_ref(),
             payer.key().as_ref(),
-            description.as_bytes().as_ref()
         ],
         bump
     )]
