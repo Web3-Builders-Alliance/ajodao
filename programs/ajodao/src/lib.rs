@@ -36,4 +36,9 @@ pub mod ajodao {
     pub fn user_join_pot(ctx: Context<JoinPot>) -> Result<()> {
         instructions::join_pot(ctx)
     }
+
+    // Deposit into pot
+    pub fn deposit(ctx:Context<DepositIntoPot>, amount:u64) -> Result<()> {
+        ctx.accounts.deposit(amount)
+    }
 }
