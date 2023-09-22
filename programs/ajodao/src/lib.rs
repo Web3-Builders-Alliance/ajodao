@@ -41,4 +41,9 @@ pub mod ajodao {
     pub fn deposit(ctx:Context<DepositIntoPot>, amount:u64) -> Result<()> {
         ctx.accounts.deposit(amount)
     }
+
+    // Update Pot Open Status
+    pub fn update_pot_status(ctx: Context<UpdatePotOpenStatus>, status: bool) -> Result<()> {
+        ctx.accounts.update_pot_open_status(status)
+    }
 }

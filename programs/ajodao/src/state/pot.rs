@@ -13,6 +13,7 @@ pub struct Pot {
     pub members: Vec<Profile>,
     pub vault_bump: u8,
     pub state_bump: u8,
+    pub is_open: bool
 }
 
 impl Pot {
@@ -29,6 +30,7 @@ impl Pot {
         members: Vec<Profile>,
         vault_bump: u8,
         state_bump: u8,
+        is_open: bool
     ) -> Result<Self> {
         Ok(Self {
             owner,
@@ -40,6 +42,7 @@ impl Pot {
             members,
             vault_bump,
             state_bump,
+            is_open
         })
     }
 }

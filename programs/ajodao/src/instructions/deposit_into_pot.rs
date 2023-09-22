@@ -1,10 +1,6 @@
 use crate::{state::pot::*, state::profile::*};
 use anchor_lang::prelude::*;
-use anchor_spl::token::{Transfer, TokenAccount, Token, transfer, Mint};
-
-pub fn deposit_into_pot() -> Result<()> {
-    Ok(())
-}
+use anchor_spl::token::{transfer, Mint, Token, TokenAccount, Transfer};
 
 #[derive(Accounts)]
 pub struct DepositIntoPot<'info> {
@@ -46,7 +42,7 @@ impl<'info> DepositIntoPot<'info> {
         let cpi_account = Transfer {
             from: self.user_ata.to_account_info(),
             to: self.vault.to_account_info(),
-            authority: self.user.to_account_info()
+            authority: self.user.to_account_info(),
         };
 
         let cpi = CpiContext::new(self.token_program.to_account_info(), cpi_account);

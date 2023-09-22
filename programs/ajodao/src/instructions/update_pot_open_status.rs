@@ -4,30 +4,8 @@ use std::mem::size_of;
 
 use crate::state::pot::*;
 
-pub fn create_pot(
-    ctx: Context<CreatePot>,
-    description: String,
-    name: String,
-    cycle: PotCycles,
-    created_at: String,
-) -> Result<()> {
-    ctx.accounts.pot.set_inner(Pot::new_pot(
-        ctx.accounts.payer.key(),
-        0,
-        description,
-        name,
-        cycle,
-        created_at,
-        vec![], 
-        *ctx.bumps.get("vault").expect("Failed to get bump `vault`"),
-        *ctx.bumps.get("pot").expect("Failed to get bump `pot`"),
-        true
-    )?);
-    Ok(())
-}
-
 #[derive(Accounts)]
-pub struct CreatePot<'info> {
+pub struct UpdatePotOpenStatus<'info> {
     #[account(
         init,
         space = size_of::<Pot>(),
@@ -62,4 +40,11 @@ pub struct CreatePot<'info> {
     pub token_mint: Account<'info, Mint>,
     pub token_program: Program<'info, Token>,
     pub system_program: Program<'info, System>,
+}
+
+impl<'info> UpdatePotOpenStatus<'info> {
+    pub fn update_pot_open_status(self: &mut Self, status: bool) -> Result<()> {
+        self.pot.is_open = status;
+        Ok(())
+    }
 }
