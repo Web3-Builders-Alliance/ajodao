@@ -30,7 +30,7 @@ pub mod ajodao {
         number_of_deposits: u64, total_amount_deposited: u64
     ) -> Result<()> {
         instructions::create_profile(ctx, name, email, number_of_deposits, total_amount_deposited)
-    }
+    } 
 
     // Join Pot
     pub fn user_join_pot(ctx: Context<JoinPot>) -> Result<()> {

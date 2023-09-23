@@ -1,15 +1,11 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{Mint, TokenAccount, Token};
-use std::mem::size_of;
 
 use crate::state::pot::*;
 
 #[derive(Accounts)]
 pub struct UpdatePotOpenStatus<'info> {
     #[account(
-        init,
-        space = size_of::<Pot>(),
-        payer = payer,
         seeds = [
             b"pot",
             payer.key().as_ref(),
@@ -26,8 +22,6 @@ pub struct UpdatePotOpenStatus<'info> {
     /// This is fine
     pub auth: UncheckedAccount<'info>,
     #[account(
-        init,
-        payer = payer,
         seeds = [
             b"vault",
             pot.key().as_ref()
