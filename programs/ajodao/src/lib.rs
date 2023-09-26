@@ -18,18 +18,18 @@ pub mod ajodao {
         name: String,
         cycle: PotCycles,
         created_at: String,
+        max_capacity: u8
     ) -> Result<()> {
-        instructions::create_pot(ctx, description, name, cycle, created_at)
+        instructions::create_pot(ctx, description, name, cycle, created_at, max_capacity)
     }
 
     // Create Profile
     pub fn create_new_profile(
         ctx: Context<CreateProfile>,
         name: String,
-        email: String,
-        number_of_deposits: u64, total_amount_deposited: u64
+        email: String
     ) -> Result<()> {
-        instructions::create_profile(ctx, name, email, number_of_deposits, total_amount_deposited)
+        instructions::create_profile(ctx, name, email)
     } 
 
     // Join Pot

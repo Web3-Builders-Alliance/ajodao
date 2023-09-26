@@ -1,6 +1,8 @@
 use anchor_lang::prelude::*;
 
 use crate::profile::*;
+use crate::errors::*;
+
 
 #[account]
 pub struct Pot {
@@ -13,7 +15,8 @@ pub struct Pot {
     pub members: Vec<Profile>,
     pub vault_bump: u8,
     pub state_bump: u8,
-    pub is_open: bool
+    pub is_open: bool,
+    pub max_capacity: u8
 }
 
 impl Pot {
@@ -30,7 +33,8 @@ impl Pot {
         members: Vec<Profile>,
         vault_bump: u8,
         state_bump: u8,
-        is_open: bool
+        is_open: bool,
+        max_capacity: u8
     ) -> Result<Self> {
         Ok(Self {
             owner,
@@ -42,8 +46,14 @@ impl Pot {
             members,
             vault_bump,
             state_bump,
-            is_open
+            is_open,
+            max_capacity
         })
+    }
+
+    pub fn join_pot(self: &mut Self, member: Profile) -> Result<()> {
+        require!(self.members.contains(&member), Errors::UserExists);
+        Ok(self.members.push(member))
     }
 }
 
