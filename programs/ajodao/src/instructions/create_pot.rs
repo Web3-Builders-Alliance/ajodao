@@ -10,7 +10,8 @@ pub fn create_pot(
     name: String,
     cycle: PotCycles,
     created_at: String,
-    max_capacity: u8
+    max_capacity: u8,
+    contribution_amount: u64
 ) -> Result<()> {
     ctx.accounts.pot.set_inner(Pot::new_pot(
         ctx.accounts.payer.key(),
@@ -23,7 +24,8 @@ pub fn create_pot(
         *ctx.bumps.get("vault").expect("Failed to get bump `vault`"),
         *ctx.bumps.get("pot").expect("Failed to get bump `pot`"),
         true,
-        max_capacity
+        max_capacity,
+        contribution_amount
     )?);
     Ok(())
 }

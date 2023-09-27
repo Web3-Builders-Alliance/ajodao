@@ -1,4 +1,4 @@
-use crate::{state::pot::*, state::profile::*};
+use crate::{state::pot::*, state::profile::*, Errors};
 use anchor_lang::prelude::*;
 use anchor_spl::token::{transfer, Mint, Token, TokenAccount, Transfer};
 
@@ -39,6 +39,10 @@ pub struct DepositIntoPot<'info> {
 
 impl<'info> DepositIntoPot<'info> {
     pub fn deposit(&self, amount: u64) -> Result<()> {
+        if amount != self.pot.contribution_amount {
+            return Err(Errors::ContributionAmountDoesNotEqualPotContributionAmount.into())
+        }
+
         let cpi_account = Transfer {
             from: self.user_ata.to_account_info(),
             to: self.vault.to_account_info(),

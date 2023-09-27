@@ -18,19 +18,28 @@ pub mod ajodao {
         name: String,
         cycle: PotCycles,
         created_at: String,
-        max_capacity: u8
+        max_capacity: u8,
+        contribution_amount: u64,
     ) -> Result<()> {
-        instructions::create_pot(ctx, description, name, cycle, created_at, max_capacity)
+        instructions::create_pot(
+            ctx,
+            description,
+            name,
+            cycle,
+            created_at,
+            max_capacity,
+            contribution_amount,
+        )
     }
 
     // Create Profile
     pub fn create_new_profile(
         ctx: Context<CreateProfile>,
         name: String,
-        email: String
+        email: String,
     ) -> Result<()> {
         instructions::create_profile(ctx, name, email)
-    } 
+    }
 
     // Join Pot
     pub fn user_join_pot(ctx: Context<JoinPot>) -> Result<()> {
@@ -38,7 +47,7 @@ pub mod ajodao {
     }
 
     // Deposit into pot
-    pub fn deposit(ctx:Context<DepositIntoPot>, amount:u64) -> Result<()> {
+    pub fn deposit(ctx: Context<DepositIntoPot>, amount: u64) -> Result<()> {
         ctx.accounts.deposit(amount)
     }
 

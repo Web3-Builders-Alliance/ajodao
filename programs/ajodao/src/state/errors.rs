@@ -9,5 +9,7 @@ pub enum Errors {
     #[msg("User already  in Pot")]
     UserAlreadyInPot,
     #[msg("Maximum capacity reached")]
-    MaximumCapacityReached
+    MaximumCapacityReached,
+    #[msg("Contribution amount must be equal Pot's contribution amount")]
+    ContributionAmountDoesNotEqualPotContributionAmount
 }

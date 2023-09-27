@@ -16,7 +16,8 @@ pub struct Pot {
     pub vault_bump: u8,
     pub state_bump: u8,
     pub is_open: bool,
-    pub max_capacity: u8
+    pub max_capacity: u8,
+    pub contribution_amount: u64
 }
 
 impl Pot {
@@ -34,7 +35,8 @@ impl Pot {
         vault_bump: u8,
         state_bump: u8,
         is_open: bool,
-        max_capacity: u8
+        max_capacity: u8,
+        contribution_amount: u64
     ) -> Result<Self> {
         Ok(Self {
             owner,
@@ -47,7 +49,8 @@ impl Pot {
             vault_bump,
             state_bump,
             is_open,
-            max_capacity
+            max_capacity,
+            contribution_amount
         })
     }
 
