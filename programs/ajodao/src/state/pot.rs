@@ -1,8 +1,7 @@
 use anchor_lang::prelude::*;
 
-use crate::profile::*;
 use crate::errors::*;
-
+use crate::profile::*;
 
 #[account]
 pub struct Pot {
@@ -12,12 +11,13 @@ pub struct Pot {
     pub name: String,
     pub cycle: PotCycles,
     pub created_at: String,
-    pub members: Vec<Profile>,
+    pub members: Vec<UserProfile>,
     pub vault_bump: u8,
     pub state_bump: u8,
-    pub is_open: bool,
+    pub pot_status: PotStatus,
     pub max_capacity: u8,
-    pub contribution_amount: u64
+    pub contribution_amount: u64,
+    pub members_paid: Vec<UserProfile>,
 }
 
 impl Pot {
@@ -31,12 +31,13 @@ impl Pot {
         name: String,
         cycle: PotCycles,
         created_at: String,
-        members: Vec<Profile>,
+        members: Vec<UserProfile>,
         vault_bump: u8,
         state_bump: u8,
-        is_open: bool,
+        pot_status: PotStatus,
         max_capacity: u8,
-        contribution_amount: u64
+        contribution_amount: u64,
+        members_paid: Vec<UserProfile>,
     ) -> Result<Self> {
         Ok(Self {
             owner,
@@ -48,13 +49,14 @@ impl Pot {
             members,
             vault_bump,
             state_bump,
-            is_open,
+            pot_status,
             max_capacity,
-            contribution_amount
+            contribution_amount,
+            members_paid,
         })
     }
 
-    pub fn join_pot(self: &mut Self, member: Profile) -> Result<()> {
+    pub fn join_pot(self: &mut Self, member: UserProfile) -> Result<()> {
         require!(self.members.contains(&member), Errors::UserExists);
         Ok(self.members.push(member))
     }
@@ -65,4 +67,11 @@ pub enum PotCycles {
     Daily,
     Weekly,
     Monthly,
+}
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone)]
+pub enum PotStatus {
+    Open,
+    Closed,
+    InProgress,
 }

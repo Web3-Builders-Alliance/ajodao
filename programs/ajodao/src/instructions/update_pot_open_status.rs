@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use anchor_spl::token::{Mint, TokenAccount, Token};
+use anchor_spl::token::{Mint, Token, TokenAccount};
 
 use crate::state::pot::*;
 
@@ -19,7 +19,7 @@ pub struct UpdatePotOpenStatus<'info> {
         seeds = [b"auth", pot.key().as_ref()],
         bump
     )]
-    /// This is fine
+    /// CHECK: This is fine.
     pub auth: UncheckedAccount<'info>,
     #[account(
         seeds = [
@@ -37,8 +37,8 @@ pub struct UpdatePotOpenStatus<'info> {
 }
 
 impl<'info> UpdatePotOpenStatus<'info> {
-    pub fn update_pot_open_status(self: &mut Self, status: bool) -> Result<()> {
-        self.pot.is_open = status;
-        Ok(())
-    }
+    // pub fn update_pot_open_status(self: &mut Self, status: bool) -> Result<()> {
+    //     self.pot.is_open = status;
+    //     Ok(())
+    // }
 }

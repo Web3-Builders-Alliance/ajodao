@@ -2,7 +2,7 @@ use crate::{state::pot::*, state::profile::*, Errors};
 use anchor_lang::prelude::*;
 use anchor_spl::token::{transfer, Mint, Token, TokenAccount, Transfer};
 
-#[derive(Accounts)]
+#[derive(Accounts, AnchorDeserialize, AnchorSerialize)]
 pub struct DepositIntoPot<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
@@ -15,11 +15,12 @@ pub struct DepositIntoPot<'info> {
         seeds = [b"user", pot.owner.key().as_ref(), payer.key().as_ref()],
         bump,
     )]
-    pub user: Account<'info, Profile>,
+    pub user: Account<'info, UserProfile>,
     #[account(
         seeds = [b"auth"],
         bump
     )]
+    /// CHECK: This is fine.
     pub auth: UncheckedAccount<'info>,
     #[account(
         seeds = [
@@ -40,7 +41,7 @@ pub struct DepositIntoPot<'info> {
 impl<'info> DepositIntoPot<'info> {
     pub fn deposit(&self, amount: u64) -> Result<()> {
         if amount != self.pot.contribution_amount {
-            return Err(Errors::ContributionAmountDoesNotEqualPotContributionAmount.into())
+            return Err(Errors::ContributionAmountDoesNotEqualPotContributionAmount.into());
         }
 
         let cpi_account = Transfer {

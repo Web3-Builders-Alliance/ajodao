@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use anchor_spl::token::{Mint, TokenAccount, Token};
+use anchor_spl::token::{Mint, Token, TokenAccount};
 use std::mem::size_of;
 
 use crate::state::pot::*;
@@ -11,7 +11,7 @@ pub fn create_pot(
     cycle: PotCycles,
     created_at: String,
     max_capacity: u8,
-    contribution_amount: u64
+    contribution_amount: u64,
 ) -> Result<()> {
     ctx.accounts.pot.set_inner(Pot::new_pot(
         ctx.accounts.payer.key(),
@@ -20,12 +20,13 @@ pub fn create_pot(
         name,
         cycle,
         created_at,
-        vec![], 
+        vec![],
         *ctx.bumps.get("vault").expect("Failed to get bump `vault`"),
         *ctx.bumps.get("pot").expect("Failed to get bump `pot`"),
-        true,
+        PotStatus::Open,
         max_capacity,
-        contribution_amount
+        contribution_amount,
+        vec![],
     )?);
     Ok(())
 }
@@ -49,7 +50,7 @@ pub struct CreatePot<'info> {
         seeds = [b"auth", pot.key().as_ref()],
         bump
     )]
-    /// This is fine
+    /// CHECK: This is fine
     pub auth: UncheckedAccount<'info>,
     #[account(
         init,

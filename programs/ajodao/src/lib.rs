@@ -32,7 +32,7 @@ pub mod ajodao {
         )
     }
 
-    // Create Profile
+    // Create UserProfile
     pub fn create_new_profile(
         ctx: Context<CreateProfile>,
         name: String,
@@ -52,7 +52,7 @@ pub mod ajodao {
     }
 
     // Update Pot Open Status
-    pub fn update_pot_status(ctx: Context<UpdatePotOpenStatus>, status: bool) -> Result<()> {
-        ctx.accounts.update_pot_open_status(status)
-    }
+    // pub fn update_pot_status(ctx: Context<UpdatePotOpenStatus>, status: bool) -> Result<()> {
+    //     ctx.accounts.update_pot_open_status(status)
+    // }
 }
