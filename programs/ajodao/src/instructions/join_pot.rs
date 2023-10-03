@@ -9,9 +9,9 @@ pub fn join_pot(ctx: Context<JoinPot>) -> Result<()> {
     }
 
     // Checks for user already in pot
-    if ctx.accounts.pot.members.contains(&ctx.accounts.profile) {
-        return Err(Errors::UserAlreadyInPot.into());
-    }
+    // if ctx.accounts.pot.members.contains(&ctx.accounts.profile) {
+    //     return Err(Errors::UserAlreadyInPot.into());
+    // }
 
     if ctx.accounts.pot.members.len() == ctx.accounts.pot.max_capacity as usize {
         // Update pot status here and emit an event

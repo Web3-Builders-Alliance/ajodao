@@ -2,15 +2,15 @@
 seeds = false
 skip-lint = false
 [programs.localnet]
-ajodao = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+ajodao = "Er6BnuDMkq71j2v7TJZRkNPtVwFGJ31iCiGbuYcHLGKk"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "Localnet"
-# wallet = "/Users/personal/.config/solana/id.json"
-wallet = "/home/david/.config/solana/id.json"
+wallet = "/Users/personal/.config/solana/id.json"
+# wallet = "/home/david/.config/solana/id.json"
 
 
 [scripts]

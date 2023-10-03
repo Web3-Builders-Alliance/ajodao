@@ -1,16 +1,12 @@
 use anchor_lang::prelude::*;
-use std::mem::size_of;
 
 use crate::state::profile::*;
 
 pub fn create_profile(ctx: Context<CreateProfile>, name: String, email: String) -> Result<()> {
-    ctx.accounts.profile.set_inner(UserProfile::new_profile(
-        name,
-        email,
-        0,
-        0,
-        ctx.accounts.payer.key(),
-    )?);
+    require_gt!(31, name.len());
+    require_gt!(31, email.len());
+    let profile = UserProfile::new_profile(name, email, 0, 0, ctx.accounts.payer.key())?;
+    ctx.accounts.profile.set_inner(profile);
     Ok(())
 }
 
@@ -21,7 +17,7 @@ pub struct CreateProfile<'info> {
     #[account(
         init,
         payer = payer,
-        space = size_of::<UserProfile>() + 8,
+        space = UserProfile::INIT_SPACE,
         seeds = [b"profile", payer.key().as_ref()],
         bump
     )]

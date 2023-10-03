@@ -6,7 +6,7 @@ pub mod state;
 pub use instructions::*;
 pub use state::*;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("Er6BnuDMkq71j2v7TJZRkNPtVwFGJ31iCiGbuYcHLGKk");
 
 #[program]
 pub mod ajodao {

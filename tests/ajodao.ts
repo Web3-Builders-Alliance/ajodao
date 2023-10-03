@@ -14,12 +14,18 @@ describe("ajodao", () => {
 
   const user: Keypair = anchor.web3.Keypair.generate();
 
+  it("Airdrop", async () => {
+    await Promise.all([user].map(async (k) => {
+      return await anchor.getProvider().connection.requestAirdrop(k.publicKey, 100 * anchor.web3.LAMPORTS_PER_SOL)
+    }))
+  });
+
   it("Create profile", async () => {
     const name: string = "Senior Man";
     const email: string = "random@email.com";
 
     const [profilePDA, bump]: [PublicKey, number] =
-      await PublicKey.findProgramAddressSync(
+      await PublicKey.findProgramAddress(
         [anchor.utils.bytes.utf8.encode("profile"), user.publicKey.toBuffer()],
         program.programId
       );
