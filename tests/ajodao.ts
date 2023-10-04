@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { Ajodao } from "../target/types/ajodao";
+import { Ajodao, IDL } from "../target/types/ajodao";
 import { PublicKey, Keypair } from "@solana/web3.js";
 import { expect } from "chai";
 
@@ -12,12 +12,28 @@ describe("ajodao", () => {
 
   const program = anchor.workspace.Ajodao as Program<Ajodao>;
 
+  // const programId = new PublicKey(
+  //   "BPHzpr8M4qt4aNiDjEzkF5LeofxDRZxCZPzUyRGGnm6X"
+  // );
+  // const program = new anchor.Program<Ajodao>(
+  //   IDL,
+  //   programId,
+  //   anchor.getProvider()
+  // );
+
   const user: Keypair = anchor.web3.Keypair.generate();
 
   it("Airdrop", async () => {
-    await Promise.all([user].map(async (k) => {
-      return await anchor.getProvider().connection.requestAirdrop(k.publicKey, 100 * anchor.web3.LAMPORTS_PER_SOL)
-    }))
+    await Promise.all(
+      [user].map(async (k) => {
+        return await anchor
+          .getProvider()
+          .connection.requestAirdrop(
+            k.publicKey,
+            100 * anchor.web3.LAMPORTS_PER_SOL
+          );
+      })
+    );
   });
 
   it("Create profile", async () => {
@@ -33,9 +49,10 @@ describe("ajodao", () => {
     await program.methods
       .createNewProfile(name, email)
       .accounts({
-        payer: provider.wallet.publicKey as any,
+        payer: user.publicKey,
         profile: profilePDA,
       })
+      .signers([user])
       .rpc();
 
     expect((await program.account.userProfile.fetch(profilePDA)).name).to.equal(

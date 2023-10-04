@@ -10,7 +10,7 @@ pub fn create_profile(ctx: Context<CreateProfile>, name: String, email: String) 
     Ok(())
 }
 
-#[derive(Accounts, AnchorDeserialize, AnchorSerialize)]
+#[derive(Accounts)]
 pub struct CreateProfile<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,

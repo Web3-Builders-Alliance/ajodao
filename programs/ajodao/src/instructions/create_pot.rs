@@ -20,13 +20,13 @@ pub fn create_pot(
         name,
         cycle,
         created_at,
-        vec![],
+        // vec![],
         *ctx.bumps.get("vault").expect("Failed to get bump `vault`"),
         *ctx.bumps.get("pot").expect("Failed to get bump `pot`"),
         PotStatus::Open,
         max_capacity,
         contribution_amount,
-        vec![],
+        // vec![],
     )?);
     Ok(())
 }

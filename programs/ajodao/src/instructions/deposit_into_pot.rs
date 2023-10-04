@@ -2,7 +2,7 @@ use crate::{state::pot::*, state::profile::*, Errors};
 use anchor_lang::prelude::*;
 use anchor_spl::token::{transfer, Mint, Token, TokenAccount, Transfer};
 
-#[derive(Accounts, AnchorDeserialize, AnchorSerialize)]
+#[derive(Accounts)]
 pub struct DepositIntoPot<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
