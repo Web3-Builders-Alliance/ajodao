@@ -37,8 +37,8 @@ describe("ajodao", () => {
   });
 
   it("Create profile", async () => {
-    const name: string = "Senior Man";
-    const email: string = "random@email.com";
+    const name: string = "Junior Man";
+    const email: string = "junior@man.com";
 
     const [profilePDA, bump]: [PublicKey, number] =
       await PublicKey.findProgramAddress(
@@ -53,10 +53,12 @@ describe("ajodao", () => {
         profile: profilePDA,
       })
       .signers([user])
-      .rpc();
+      .rpc({
+        skipPreflight: true,
+      });
 
     expect((await program.account.userProfile.fetch(profilePDA)).name).to.equal(
-      "Senior Man"
+      "Junior Man"
     );
   });
 });

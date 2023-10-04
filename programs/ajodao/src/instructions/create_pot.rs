@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::token::{Mint, Token, TokenAccount};
 use std::mem::size_of;
 
-use crate::state::pot::*;
+use crate::{state::pot::*, UserProfile};
 
 pub fn create_pot(
     ctx: Context<CreatePot>,
@@ -46,6 +46,18 @@ pub struct CreatePot<'info> {
     pub pot: Account<'info, Pot>,
     #[account(mut)]
     pub payer: Signer<'info>,
+    #[account(
+        init,
+        space = 8 + 32 + 8 + 8 + 4 + 30 + 4 + 30,
+        payer = payer,
+        seeds = [
+            b"profile",
+            payer.key().as_ref(),
+            pot.key().as_ref()
+        ],
+        bump
+    )]
+    pub members: Account<'info, UserProfile>,
     #[account(
         seeds = [b"auth", pot.key().as_ref()],
         bump
