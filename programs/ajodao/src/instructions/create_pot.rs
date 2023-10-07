@@ -30,7 +30,14 @@ pub fn create_pot(
         max_capacity,
         contribution_amount,
         0, // vec![],
+        vec![]
     )?);
+
+    // Add user to members vec![]
+    ctx.accounts.pot.members.push(ctx.accounts.payer.key());
+
+    // Add public key of pot to profile pots created
+    ctx.accounts.members.pots_created.push(ctx.accounts.pot.key());
 
     // Increments number of members that have joiined 
     // since we're generating a member PDA for the creator
@@ -50,7 +57,7 @@ pub fn create_pot(
 pub struct CreatePot<'info> {
     #[account(
         init,
-        space = 8 + 24 + 12 + 100 + 20 + 10 + 15 + 10 + 15 + 10 + 10 + 10 + 12 + 1,
+        space = 8 + 24 + 12 + 100 + 20 + 10 + 15 + 10 + 15 + 10 + 10 + 10 + 12 + 200 + 1,
         payer = payer,
         seeds = [
             name.as_bytes(),

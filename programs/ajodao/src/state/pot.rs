@@ -15,7 +15,8 @@ pub struct Pot {
     pub pot_status: PotStatus,
     pub max_capacity: u8,
     pub contribution_amount: u64,
-    pub num_of_members_joined: u8
+    pub num_of_members_joined: u8,
+    pub members: Vec<Pubkey>
 }
 
 impl Pot {
@@ -33,7 +34,8 @@ impl Pot {
         pot_status: PotStatus,
         max_capacity: u8,
         contribution_amount: u64,
-        num_of_members_joined: u8
+        num_of_members_joined: u8,
+        members: Vec<Pubkey>
     ) -> Result<Self> {
         Ok(Self {
             owner,
@@ -46,7 +48,8 @@ impl Pot {
             pot_status,
             max_capacity,
             contribution_amount,
-            num_of_members_joined
+            num_of_members_joined,
+            members
         })
     }
 }

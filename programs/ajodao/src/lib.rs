@@ -42,8 +42,8 @@ pub mod ajodao {
     }
 
     // Join Pot
-    pub fn user_join_pot(ctx: Context<JoinPot>) -> Result<()> {
-        instructions::join_pot(ctx)
+    pub fn user_join_pot(ctx: Context<JoinPot>, name: String, creator: Pubkey) -> Result<()> {
+        instructions::join_pot(ctx, name, creator)
     }
 
     // Deposit into pot

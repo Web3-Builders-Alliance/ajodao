@@ -5,7 +5,7 @@ use crate::state::profile::*;
 pub fn create_profile(ctx: Context<CreateProfile>, name: String, email: String) -> Result<()> {
     require_gt!(31, name.len());
     require_gt!(31, email.len());
-    let profile = UserProfile::new_profile(name, email, 0, 0, ctx.accounts.payer.key())?;
+    let profile = UserProfile::new_profile(name, email, 0, 0, vec![])?;
     ctx.accounts.profile.set_inner(profile);
     Ok(())
 }

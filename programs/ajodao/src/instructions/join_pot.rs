@@ -2,10 +2,13 @@ use crate::state::{errors::*, pot::*, profile::*};
 use anchor_lang::prelude::*;
 // use std::mem::size_of;
 
-pub fn join_pot(ctx: Context<JoinPot>) -> Result<()> {
+pub fn join_pot(ctx: Context<JoinPot>, _name: String, _creator: Pubkey) -> Result<()> {
     // require!(profile.address, );
-    if ctx.accounts.profile.address != *ctx.accounts.payer.key {
-        return Err(Errors::UserProfileNotFound.into());
+    // if ctx.accounts.profile.address != *ctx.accounts.payer.key {
+    //     return Err(Errors::UserProfileNotFound.into());
+    // }
+    if ctx.accounts.profile.name == " " {
+        return Err(Errors::UserProfileNotFound.into())
     }
 
     // Check whether number of pot is equal to the max_capacity
@@ -13,6 +16,13 @@ pub fn join_pot(ctx: Context<JoinPot>) -> Result<()> {
     if ctx.accounts.pot.max_capacity == ctx.accounts.pot.num_of_members_joined {
         return Err(Errors::MaximumCapacityReached.into());
     }
+
+    // Check if user is already in the Pot
+    if ctx.accounts.pot.members.contains(&ctx.accounts.payer.key()) {
+        return Err(Errors::UserAlreadyInPot.into())
+    }
+
+    ctx.accounts.pot.members.push(ctx.accounts.payer.key());
 
     // Increment number of members in the pot
     ctx.accounts.pot.num_of_members_joined += 1;
@@ -40,22 +50,19 @@ pub fn join_pot(ctx: Context<JoinPot>) -> Result<()> {
 }
 
 #[derive(Accounts)]
+#[instruction(name: String, creator: Pubkey)]
 pub struct JoinPot<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
     #[account(
-        seeds = [b"pot", pot.owner.key().as_ref()],
+        seeds = [name.as_bytes(), creator.key().as_ref()],
         bump
     )]
     pub pot: Account<'info, Pot>,
     #[account(
-        init,
-        space = UserProfile::INIT_SPACE,
-        payer = payer,
         seeds = [
             b"profile",
             payer.key().as_ref(),
-            pot.key().as_ref()
         ],
         bump
     )]
