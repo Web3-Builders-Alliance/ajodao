@@ -1,8 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{Mint, Token, TokenAccount};
-use std::mem::size_of;
 
-use crate::{state::pot::*, UserProfile};
+use crate::{state::pot::*, UserProfile, Errors};
 
 pub fn create_pot(
     ctx: Context<CreatePot>,
@@ -13,6 +12,11 @@ pub fn create_pot(
     max_capacity: u8,
     contribution_amount: u64,
 ) -> Result<()> {
+    // Check for created profile
+    if ctx.accounts.members.name == "" {
+        return Err(Errors::UserProfileNotFound.into())
+    }
+
     ctx.accounts.pot.set_inner(Pot::new_pot(
         ctx.accounts.payer.key(),
         0,
@@ -22,23 +26,34 @@ pub fn create_pot(
         created_at,
         // vec![],
         *ctx.bumps.get("vault").expect("Failed to get bump `vault`"),
-        *ctx.bumps.get("pot").expect("Failed to get bump `pot`"),
         PotStatus::Open,
         max_capacity,
         contribution_amount,
-        // vec![],
+        0, // vec![],
     )?);
+
+    // Increments number of members that have joiined 
+    // since we're generating a member PDA for the creator
+    ctx.accounts.pot.num_of_members_joined += 1;
     Ok(())
 }
 
 #[derive(Accounts)]
+#[instruction(
+    description: String,
+    name: String,
+    cycle: PotCycles,
+    created_at: String,
+    max_capacity: u8,
+    contribution_amount: u64
+)]
 pub struct CreatePot<'info> {
     #[account(
         init,
-        space = size_of::<Pot>(),
+        space = 8 + 24 + 12 + 100 + 20 + 10 + 15 + 10 + 15 + 10 + 10 + 10 + 12 + 1,
         payer = payer,
         seeds = [
-            b"pot",
+            name.as_bytes(),
             payer.key().as_ref(),
         ],
         bump
@@ -47,13 +62,9 @@ pub struct CreatePot<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
     #[account(
-        init,
-        space = 8 + 32 + 8 + 8 + 4 + 30 + 4 + 30,
-        payer = payer,
         seeds = [
             b"profile",
-            payer.key().as_ref(),
-            pot.key().as_ref()
+            payer.key().as_ref()
         ],
         bump
     )]

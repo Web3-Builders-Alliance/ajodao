@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 
-use crate::errors::*;
-use crate::profile::*;
+// use crate::errors::*;
+// use crate::profile::*;
 
 #[account]
 pub struct Pot {
@@ -11,13 +11,11 @@ pub struct Pot {
     pub name: String,
     pub cycle: PotCycles,
     pub created_at: String,
-    // pub members: Vec<UserProfile>,
     pub vault_bump: u8,
-    pub state_bump: u8,
     pub pot_status: PotStatus,
     pub max_capacity: u8,
     pub contribution_amount: u64,
-    // pub members_paid: Vec<UserProfile>,
+    pub num_of_members_joined: u8
 }
 
 impl Pot {
@@ -31,13 +29,11 @@ impl Pot {
         name: String,
         cycle: PotCycles,
         created_at: String,
-        // members: Vec<UserProfile>,
         vault_bump: u8,
-        state_bump: u8,
         pot_status: PotStatus,
         max_capacity: u8,
         contribution_amount: u64,
-        // members_paid: Vec<UserProfile>,
+        num_of_members_joined: u8
     ) -> Result<Self> {
         Ok(Self {
             owner,
@@ -46,20 +42,13 @@ impl Pot {
             name,
             cycle,
             created_at,
-            // members,
             vault_bump,
-            state_bump,
             pot_status,
             max_capacity,
             contribution_amount,
-            // members_paid,
+            num_of_members_joined
         })
     }
-
-    // pub fn join_pot(self: &mut Self, member: UserProfile) -> Result<()> {
-    //     require!(self.members.contains(&member), Errors::UserExists);
-    //     Ok(self.members.push(member))
-    // }
 }
 
 #[derive(AnchorSerialize, AnchorDeserialize, Clone)]

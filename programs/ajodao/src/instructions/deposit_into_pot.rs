@@ -51,6 +51,7 @@ impl<'info> DepositIntoPot<'info> {
         };
 
         let cpi = CpiContext::new(self.token_program.to_account_info(), cpi_account);
+        // self.pot.total_amount += amount;
 
         transfer(cpi, amount)
 
