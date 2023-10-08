@@ -7,7 +7,7 @@ pub fn join_pot(ctx: Context<JoinPot>, _name: String, _creator: Pubkey) -> Resul
     // if ctx.accounts.profile.address != *ctx.accounts.payer.key {
     //     return Err(Errors::UserProfileNotFound.into());
     // }
-    if ctx.accounts.profile.name == " " {
+    if ctx.accounts.members.name == " " {
         return Err(Errors::UserProfileNotFound.into())
     }
 
@@ -67,7 +67,5 @@ pub struct JoinPot<'info> {
         bump
     )]
     pub members: Account<'info, UserProfile>,
-    #[account(mut)]
-    pub profile: Account<'info, UserProfile>,
     pub system_program: Program<'info, System>,
 }
