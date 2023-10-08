@@ -37,7 +37,7 @@ pub fn create_pot(
     ctx.accounts.pot.members.push(ctx.accounts.payer.key());
 
     // Add public key of pot to profile pots created
-    ctx.accounts.members.pots_created.push(ctx.accounts.pot.key());
+    // ctx.accounts.members.pots_created.push(ctx.accounts.pot.key());
 
     // Increments number of members that have joiined 
     // since we're generating a member PDA for the creator

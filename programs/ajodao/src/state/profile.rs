@@ -3,7 +3,6 @@ use anchor_lang::prelude::*;
 #[account]
 #[derive(PartialEq)]
 pub struct UserProfile {
-    pub pots_created: Vec<Pubkey>,
     pub number_of_deposits: u64,
     pub total_amount_deposited: u64,
     pub name: String,
@@ -20,14 +19,12 @@ impl UserProfile {
         email: String,
         number_of_deposits: u64,
         total_amount_deposited: u64,
-        pots_created: Vec<Pubkey>,
     ) -> Result<Self> {
         Ok(Self {
             number_of_deposits,
             total_amount_deposited,
             name,
             email,
-            pots_created,
         })
     }
 }
