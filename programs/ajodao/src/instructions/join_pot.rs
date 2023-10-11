@@ -31,8 +31,6 @@ pub fn join_pot(ctx: Context<JoinPot>, _name: String, _creator: Pubkey) -> Resul
 #[derive(Accounts)]
 #[instruction(name: String, creator: Pubkey)]
 pub struct JoinPot<'info> {
-    #[account(mut)]
-    pub payer: Signer<'info>,
     #[account(
         mut,
         seeds = [name.as_bytes(), creator.key().as_ref()],
@@ -42,13 +40,33 @@ pub struct JoinPot<'info> {
         realloc::zero = true
     )]
     pub pot: Account<'info, Pot>,
+    #[account(mut)]
+    pub payer: Signer<'info>,
     #[account(
         seeds = [
             b"profile",
-            payer.key().as_ref(),
+            payer.key().as_ref()
         ],
         bump
     )]
     pub members: Account<'info, UserProfile>,
+    // #[account(
+    //     seeds = [b"auth", pot.key().as_ref()],
+    //     bump
+    // )]
+    /// CHECK: This is fine
+    // pub auth: UncheckedAccount<'info>,
+    #[account(
+        seeds = [
+            b"vault",
+            pot.key().as_ref()
+        ],
+        bump,
+        // token::mint = token_mint,
+        // token::authority = auth
+    )]
+    pub vault: SystemAccount<'info>,
+    // pub token_mint: Account<'info, Mint>,
+    // pub token_program: Program<'info, Token>,
     pub system_program: Program<'info, System>,
 }

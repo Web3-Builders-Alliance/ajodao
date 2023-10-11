@@ -1,4 +1,4 @@
-use anchor_lang::prelude::*;
+use anchor_lang::{prelude::*, solana_program::clock::UnixTimestamp};
 
 // use crate::errors::*;
 // use crate::profile::*;
@@ -10,13 +10,13 @@ pub struct Pot {
     pub description: String,
     pub name: String,
     pub cycle: PotCycles,
-    pub created_at: String,
+    pub created_at: i64,
     pub vault_bump: u8,
     pub pot_status: PotStatus,
     pub max_capacity: u8,
     pub contribution_amount: u64,
     pub num_of_members_joined: u8,
-    pub members: Vec<Pubkey>
+    pub members: Vec<Pubkey>,
 }
 
 impl Pot {
@@ -29,13 +29,13 @@ impl Pot {
         description: String,
         name: String,
         cycle: PotCycles,
-        created_at: String,
+        created_at: UnixTimestamp,
         vault_bump: u8,
         pot_status: PotStatus,
         max_capacity: u8,
         contribution_amount: u64,
         num_of_members_joined: u8,
-        members: Vec<Pubkey>
+        members: Vec<Pubkey>,
     ) -> Result<Self> {
         Ok(Self {
             owner,
@@ -49,7 +49,7 @@ impl Pot {
             max_capacity,
             contribution_amount,
             num_of_members_joined,
-            members
+            members,
         })
     }
 }
@@ -66,4 +66,10 @@ pub enum PotStatus {
     Open,
     Closed,
     InProgress,
+}
+
+#[account()]
+pub struct PotBalance {
+    pot: Pubkey,
+    amount: u64,
 }

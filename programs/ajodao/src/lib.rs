@@ -17,7 +17,6 @@ pub mod ajodao {
         description: String,
         name: String,
         cycle: PotCycles,
-        created_at: String,
         max_capacity: u8,
         contribution_amount: u64,
     ) -> Result<()> {
@@ -26,7 +25,6 @@ pub mod ajodao {
             description,
             name,
             cycle,
-            created_at,
             max_capacity,
             contribution_amount,
         )
@@ -47,7 +45,7 @@ pub mod ajodao {
     }
 
     // Deposit into pot
-    pub fn deposit(ctx: Context<DepositIntoPot>, amount: u64) -> Result<()> {
+    pub fn deposit(ctx: Context<DepositIntoPot>, amount: u64, _name: String, _creator: Pubkey) -> Result<()> {
         ctx.accounts.deposit(amount)
     }
 
