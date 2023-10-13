@@ -8,6 +8,7 @@ pub fn create_pot(
     description: String,
     name: String,
     cycle: PotCycles,
+    created_at: String,
     max_capacity: u8,
     contribution_amount: u64,
 ) -> Result<()> {
@@ -23,7 +24,7 @@ pub fn create_pot(
         description,
         name,
         cycle,
-        clock.unix_timestamp, // This should be done here...
+        created_at, // This should be done here...
         // vec![],
         *ctx.bumps.get("vault").expect("Failed to get bump `vault`"),
         PotStatus::Open,

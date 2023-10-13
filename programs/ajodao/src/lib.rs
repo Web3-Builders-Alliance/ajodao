@@ -17,6 +17,7 @@ pub mod ajodao {
         description: String,
         name: String,
         cycle: PotCycles,
+        created_at: String,
         max_capacity: u8,
         contribution_amount: u64,
     ) -> Result<()> {
@@ -25,6 +26,7 @@ pub mod ajodao {
             description,
             name,
             cycle,
+            created_at,
             max_capacity,
             contribution_amount,
         )
