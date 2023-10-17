@@ -1,4 +1,4 @@
-## AjoDAO: Solana's Savings Revolution
+## AjoDAO: Solana's DeFi Revolution
 
 AjoDAO is a Solana blockchain DApp that reinvents group savings with digital "pots," mirroring the traditional Tanda club model.
 ## Opportunity: AjoDAO's Perfect Fit
