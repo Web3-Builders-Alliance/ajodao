@@ -11,7 +11,7 @@ This data showcases a substantial and engaged audience, ready and waiting for a 
 
 ### 1. Lack of Fund Transparency and Security
 
-A significant number of respondents from our research expressed concerns about the lack of fund transparency, fund security, and limited financial control within existing savings groups, often referred to as "Ajo" groups. This problem is especially pronounced in traditional setups, where tracking contributions and managing the group's finances can be challenging.
+A significant number of respondents from our research expressed concerns about the lack of fund transparency, fund security, and limited financial control within existing savings groups, often referred to as "Ajo" or "Akawo" or "Adashe" groups in Nigeria. This problem is especially pronounced in traditional setups, where tracking contributions and managing the group's finances can be challenging.
 
 ### 2. Past Failures in the Industry
 
