@@ -109,7 +109,7 @@ describe("ajodao", () => {
         pot.description,
         pot.name,
         cycle,
-        "today",
+        pot.created_at,
         pot.max_capacity,
         contribution_amount
       )

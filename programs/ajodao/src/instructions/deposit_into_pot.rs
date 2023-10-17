@@ -31,6 +31,7 @@ pub struct DepositIntoPot<'info> {
     /// CHECK: This is fine
     // pub auth: UncheckedAccount<'info>,
     #[account(
+        mut,
         seeds = [
             b"vault",
             pot.key().as_ref()
@@ -62,11 +63,23 @@ impl<'info> DepositIntoPot<'info> {
             to: self.vault.to_account_info(),
         };
 
-        let cpi = CpiContext::new(self.system_program.to_account_info(), cpi_account);
+        let ix = anchor_lang::solana_program::system_instruction::transfer(
+            &self.payer.key(), 
+            &self.pot.key(), 
+            amount
+        );
+        // **self.pot.try_borrow_mut_lamports()? += amount;
+        // **self.payer.try_borrow_mut_lamports()? -= amount;
+        anchor_lang::solana_program::program::invoke(
+            &ix, 
+            &[
+                self.payer.to_account_info(),
+                self.pot.to_account_info(),
+                self.system_program.to_account_info()
+            ]
+        );
         self.pot.total_amount += amount;
 
-        transfer(cpi, amount)
-
-        // Ok(())
+        Ok(())
     }
 }
