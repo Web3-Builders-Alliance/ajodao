@@ -36,7 +36,7 @@ Our commitment is to bridge these financial gaps and empower users with a more i
 - [x] Create a new profile: Users can create a new profile by providing a name, email, number of deposits, and total amount deposited.
 - [x] Create a new pot: Users can create a new pot by providing a description, name, cycle (daily, weekly, or monthly), and creation date.
 - [x] Join a pot: Users can join an existing pot.
-- [x] Deposit into a pot: Users can deposit a certain amount into a pot.
+- [x] Deposit into a pot: Users can deposit contribution amount into pot.
 
 ## Features to be Implemented
 
