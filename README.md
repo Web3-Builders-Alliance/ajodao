@@ -1,6 +1,7 @@
-Ajodao is a Solana blockchain DApp that allows users to create and join "pots", similar to the savings groups in a Tanda club.
+## AjoDAO: Solana's Savings Revolution
 
-## Opportunity: AjoDAO's Perfect Fit**
+AjoDAO is a Solana blockchain DApp that reinvents group savings with digital "pots," mirroring the traditional Tanda club model.
+## Opportunity: AjoDAO's Perfect Fit
 
 AjoDAO isn't just an idea; it's a solution that addresses a real need. The evidence is in the numbers. Our initial questionnaire yielded over 100 responses, and what's particularly exciting is that over 90% of respondents indicated that they are currently part of Ajo groups or have a history of participating in them.
 
